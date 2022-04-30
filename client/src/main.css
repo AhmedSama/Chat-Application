@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.title{
+    text-align: center;
+    font-size: 30px;
+}
+.nav{
+    height: 60px;
+}
+
+.container{
+    width: 100%;
+    height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    border: 1px solid rgb(215, 215, 215);
+    border-radius: 5px;
+}
+.inputs{
+    display: flex;
+    /* flex-direction: column; */
+    gap: 10px;
+    justify-content: space-between;
+}
+.input{
+    width: 100%;
+    font-size: 20px;
+    font-weight: 300;
+    border: 1px solid rgb(164, 164, 164);
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+}
+.input:focus{
+    border: none;
+    outline: 7px solid rgb(205, 255, 197);
+}
+
+.btn{
+    border: 1px solid rgb(3, 202, 0);
+    padding: 10px 20px;
+    color: white;
+    background-color: rgb(3, 202, 0);
+    border-radius: 5px;
+    font-size: 15px;
+    width: fit-content;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    transition: 0.3s ease;
+}
+.btn:hover{
+    color: rgb(3, 202, 0);
+    background-color: white;
+}
+.sendIcon{
+    font-size: 25px;
+}
+
+.msgs{
+    width: 100%;
+    height: 400px;
+    border: 1px solid rgb(237, 237, 237);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.msg_body{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin: 2px 5px;
+    max-width: 70%;
+    display: flex;
+    
+}
+.msg_body.img{
+    flex-direction: column;
+    gap: 10px;
+}
+.msg_body.voice{
+    align-items: center;
+}
+.msg_body.voice .username{
+    align-self: center;
+}
+#other{
+    background-color: rgb(34, 149, 220);
+    color: white;
+}
+
+#me{
+    background-color: rgb(0, 199, 76);
+    color: white;
+    align-self: flex-end;
+}
+
+
+.username{
+    font-weight: 500;
+    background-color: white;
+    border-radius: 70px;
+    padding: 5px 7px;
+    font-size: 10px;
+    font-weight: 900;
+    width: fit-content;
+    margin-right: 5px;
+    align-self: flex-start;
+}
+.msg_body#me .username{
+    color: rgb(0, 150, 58);
+}
+
+.msg_body#other .username{
+    color: rgb(25, 113, 168);
+}
+
+@media (max-width : 500px){
+    .form{
+        width: 95%;
+        padding: 20px;
+        gap: 20px;
+
+    }
+    .container{
+        height: calc(100vh - 60px);
+    }
+}   
+.flex{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.small{
+    font-size: 15px;
+    color: rgb(157, 157, 157);
+    font-weight: 300;
+    
+}
+
+.greendot{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgb(37, 247, 0);
+    animation: graw 1s ease infinite;
+}
+
+@keyframes graw{
+    0%{
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100%{
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.img-container{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.img-container img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    object-fit: cover;
+}
+
+input[type="file"] {
+    display: none;
+}
+.file-btn {
+    display: grid;
+    place-items: center;
+    padding: 0px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+.attachIcon{
+    font-size: 30px;
+    color: rgb(160, 160, 160);
+}
+
+
+
+/* scroll bar custom design */
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(199, 199, 199);
+    border-radius: 60px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(139, 139, 139);
+  }
+
+  .record-btn{
+    cursor: pointer;
+  }
+.record-icon{
+    font-size: 30px;
+    color: rgb(160, 160, 160);
+}
+
+.isRecording-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.isRecording-container::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(255, 0, 106);
+    border-radius: 50%;
+    border: 1px solid rgb(118, 0, 49);
+    z-index: -1;
+    animation: grawRecord 0.8s ease infinite;
+}
+.isRecording-text{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.isRecording-icon{
+    color: red;
+    cursor: pointer;
+    font-size: 30px;
+    position: relative;
+}
+
+
+@keyframes grawRecord{
+    0%{
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+    }
+    100%{
+        width: 70px;
+        height: 70px;
+        opacity: 0;
+    }
+}
+
+
+/* popup design */
+
+.popups-container{
+    position: fixed;
+    background-color: white;
+    top: 20px;
+    right: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.popup-card{
+    /* position relative so i can animate it using top left right bottom properties */
+    position: relative;
+    background-color: white;
+    padding: 20px 30px;
+    width: 300px;
+    right: -500px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 1px solid rgba(243, 0, 93, 0.197);
+    box-shadow: 5px 5px 10px rgba(243, 0, 93, 0.189);
+    animation: popup-in 0.5s cubic-bezier(0.39, 1.47, 0.62, 1.34) forwards;
+}
+/* animation: popup-in 0.5s cubic-bezier(0.39, 1.47, 0.62, 1.34) forwards; */
+/* animation: popup-out 0.5s ease forwards; */
+.popup-title{
+    font-size: 25px;
+    font-weight: 700;
+    color: rgb(243, 0, 93);
+}
+.popup-msg{
+    font-size: 15px;
+    font-weight: 300;
+    color: rgb(69, 69, 69);
+}
+
+/* popup animation */
+
+@keyframes popup-in{
+    0%{
+        right: -500px;
+
+    }
+    100%{
+        right: 40px;
+    }
+}
+
+
+@keyframes popup-out{
+    0%{
+        right: 40px;
+
+    }
+    50%{
+        right: 60px;
+
+    }
+    100%{
+        right: -500px;
+    }
+}
+
+
+
+
