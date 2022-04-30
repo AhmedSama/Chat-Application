@@ -3,6 +3,11 @@
 
 #### Chat app using socket.io
 
+## Dependencies
+
+you have to have node.js installed in your machine
+to use npm
+
 
 ## Setup
 
@@ -32,6 +37,7 @@ go back and change dir to nodeServer and
 
 ```bash
 cd ..
+cd nodeServer
 npm install
 ```
 
@@ -39,23 +45,22 @@ npm install
 
 ## Run
 
+in the same dir (nodeServer) run 
+
+```bash
+npm start
+```
+
 To run this project
 then go to client dir
 
 ```bash
 cd ..
 cd client
-npm start
 ```
-
-go back and change dir to nodeServer and
+and run
 
 ```bash
-cd ..
-cd nodeServer
 npm start
 ```
-## Dependencies
 
-you have to have node.js installed in your machine
-to use npm
