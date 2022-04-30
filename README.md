@@ -12,6 +12,10 @@ To setup the project
 git clone https://github.com/AhmedSama/Chat-Application.git
 ```
 
+```bash
+cd Chat-Application
+```
+
 then go to client dir
 
 ```bash
