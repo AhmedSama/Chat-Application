@@ -3,6 +3,15 @@
 
 #### Chat app using socket.io
 
+
+## Features 🔥
+
+- ### Sending Images 📸
+- ### Sending Audio messages 🔊
+- ### Notifications 🔔
+- ### Real-Time ⚡️
+
+
 ## Dependencies
 
 you have to have node.js installed in your machine
@@ -21,7 +30,7 @@ git clone https://github.com/AhmedSama/Chat-Application.git
 cd Chat-Application
 ```
 
-then go to client dir
+Then go to client folder
 
 ```bash
 cd client
@@ -33,26 +42,28 @@ in client dir
 npm install
 ```
 
-go back and change dir to nodeServer and
+go back and change folder to nodeServer and run
 
 ```bash
 cd ..
 cd nodeServer
+```
+then run
+```bash
 npm install
 ```
 
-
-
 ## Run
 
-in the same dir (nodeServer) run 
+#### To run this project
+
+in the same folder (nodeServer) run 
 
 ```bash
 npm start
 ```
 
-To run this project
-then go to client dir
+then go to client folder
 
 ```bash
 cd ..
