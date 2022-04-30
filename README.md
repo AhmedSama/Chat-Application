@@ -42,7 +42,7 @@ in client folder
 npm install
 ```
 
-go back and change folder to nodeServer and run
+go back and change folder to nodeServer
 
 ```bash
 cd ..
