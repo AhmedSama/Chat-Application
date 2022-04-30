@@ -12,13 +12,13 @@
 - ### Real-Time ⚡️
 
 
-## Dependencies
+## Dependencies 💎
 
 you have to have node.js installed in your machine
 to use npm
 
 
-## Setup
+## Setup 🛠
 
 To setup the project
 
@@ -53,7 +53,7 @@ then run
 npm install
 ```
 
-## Run
+## Run the Application ⚡️
 
 #### To run this project
 
