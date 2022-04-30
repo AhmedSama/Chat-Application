@@ -31,6 +31,7 @@ npm install
 go back and change dir to nodeServer and
 
 ```bash
+cd ..
 npm install
 ```
 
@@ -42,6 +43,7 @@ To run this project
 then go to client dir
 
 ```bash
+cd ..
 cd client
 npm start
 ```
@@ -49,6 +51,7 @@ npm start
 go back and change dir to nodeServer and
 
 ```bash
+cd ..
 cd nodeServer
 npm start
 ```
