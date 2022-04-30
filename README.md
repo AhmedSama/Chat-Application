@@ -36,7 +36,7 @@ Then go to client folder
 cd client
 ```
 
-in client dir
+in client folder
 
 ```bash
 npm install
