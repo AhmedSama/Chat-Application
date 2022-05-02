@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Msgs({msgs}) {
+export default function Msgs({msgs,username}) {
     // render the msg depending on the type of msg
     function makeMsg(msgData,key){
         if(msgData.type === "text"){

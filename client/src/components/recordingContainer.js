@@ -1,4 +1,5 @@
 import React from 'react'
+import { IoMicSharp } from 'react-icons/io5'
 
 export default function RecordingContainer({stopRecordingAndSend}) {
   return (

@@ -16,7 +16,8 @@ import Container from "../components/container";
 import getBase64FromUrl from "../utility/getBase64FromUrl";
 
 
-const server = "https://blooming-sands-55600.herokuapp.com"
+
+const server = "http://localhost:3001"
 
 function Chat(props){
     // put socket inside useRef() so it won't change when the component re-render when some state changes
@@ -122,7 +123,7 @@ function Chat(props){
         <Container>
             <Online online={online} />
             <Form>
-                <Msgs msgs={msgs} />
+                <Msgs msgs={msgs} username={username} />
                 {isRecoring ? ( 
                     <RecordingContainer stopRecordingAndSend={stopRecordingAndSend} />
                 ) : 

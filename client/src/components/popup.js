@@ -4,7 +4,7 @@ export default function Popup({show,title,msg}) {
     const [showPop,setShowPop] = useState(show)
     const popup = useRef()
     if (!showPop) {
-        return null
+        return <></>
     }
 
     
