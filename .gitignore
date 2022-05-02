@@ -2,7 +2,7 @@
 
 # dependencies
 node_modules
-
+nodeServer/public/audio/*
 /.pnp
 .pnp.js
 

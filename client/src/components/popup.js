@@ -9,6 +9,7 @@ export default function Popup({show,title,msg}) {
 
     
     setTimeout(()=>{
+
         popup.current.style.animation = "popup-out 0.5s ease forwards"
         setTimeout(() => {
             setShowPop(false)

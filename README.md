@@ -36,7 +36,7 @@ Then go to client folder
 cd client
 ```
 
-in client folder
+in client folder run
 
 ```bash
 npm install
@@ -55,7 +55,7 @@ npm install
 
 ## Run the Application ⚡️
 
-#### To run this project
+To run this project
 
 in the same folder (nodeServer) run 
 

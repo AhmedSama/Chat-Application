@@ -3,18 +3,27 @@ import { useEffect, useState,useRef } from "react"
 import { useHistory } from "react-router-dom";
 import  {io} from "socket.io-client"
 import msgSound from "../audio/pop-3.mp3"
-import popupSound from "../audio/explosion2.mp3"
-import {IoRocket,IoAttach,IoMicOutline,IoMicSharp} from "react-icons/io5"
+import popupSound from "../audio/long.wav"
 import recordAudio from "../audio/audioRecorder";
 import Popup from "../components/popup";
 import Popups from "../components/popups";
+import Online from "../components/online";
+import Msgs from "../components/msgs";
+import Inputs from "../components/inputs";
+import RecordingContainer from "../components/recordingContainer";
+import Form from "../components/form";
+import Container from "../components/container";
+import getBase64FromUrl from "../utility/getBase64FromUrl";
 
+
+const server = "https://blooming-sands-55600.herokuapp.com"
 
 function Chat(props){
+    // put socket inside useRef() so it won't change when the component re-render when some state changes
     const socket = useRef()
+    // to navigate to login when there is no username
     const his = useHistory()
-    
-    if(props.username === ""){
+    if(props.username === "" || props.username === undefined){
         his.replace("/")
     }
 
@@ -22,14 +31,14 @@ function Chat(props){
     const [img,setImg] = useState("")
     const [popups,setPopups] = useState([])
     // put recorder inside useRef because in startRecording func i change the state so i have
-    // to put it inside useRef so it does not change after the component re render
+    // to put it inside useRef so it does not change after the component re-render
     let recorder = useRef();
     const [msgs,setMsgs] = useState([])
     const [isRecoring,setIsRecording] = useState(false)
     const username = props.username
     const [online,setOnline] = useState(0)
-    const msgAudio = new Audio(msgSound)
-    const popupAudio = new Audio(popupSound)
+    const msgAudio = useRef()
+    const popupAudio = useRef()
     function sendMsg(){
         if(msg === "" && img === "") return
         const data = {
@@ -40,24 +49,10 @@ function Chat(props){
             username : username,
         }
         socket.current.emit("send_msg",data)
-
-        // uncomment bellow if u use the node server 
-        // setMsgs((list)=>[data,...list])
         setMsg("")
         setImg("")
     }
-    const getBase64FromUrl = async (url) => {
-        const data = await fetch(url);
-        const blob = await data.blob();
-        return new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob); 
-          reader.onloadend = () => {
-            const base64data = reader.result;   
-            resolve(base64data);
-          }
-        });
-      }
+    
     function sendAudioMsg(voiceBase64){
         const data = {
             type : "voice",
@@ -81,52 +76,24 @@ function Chat(props){
         sendAudioMsg(base64data)
         setIsRecording(false)
     }
-    function makeSrc(element,url){
-        element.src = url
-    }
-    function makeMsg(msgData,key){
-        if(msgData.type === "text"){
-            return (
-            <div key={key} id={username===msgData.username ? "me" : "other"} className="msg_body" >
-                <div className="username">{msgData.username}</div>
-                <div className="msg" >{msgData.msg}</div>
-            </div>
-            )
-        }
-        else if(msgData.type === "img"){
-            return(
-                <div key={key} id={username === msgData.username ? "me" : "other"} className="msg_body img">
-                    <div className="username">{msgData.username}</div>
-                    <div className="img-container">
-                        <img src={msgData.image} /> 
-                    </div>
-                </div>
-            )
-        }
-        else if(msgData.type === "voice"){
-            return(
-                <div onClick={(e)=>makeSrc(e.target.lastChild,e.target.dataset.url)} data-url={msgData.voice} key={key} id={username === msgData.username ? "me" : "other"} className="msg_body voice">
-                    <div className="username">{msgData.username}</div>
-                    <audio src="null" controls />
-                </div>
-            )
-        }
-    }
+
+    
         const makeImage = async (event) => {
             const url = await getBase64FromUrl(URL.createObjectURL(event.target.files[0]))
             setImg(url)
         }
+
+        // LISTENERS
         useEffect(()=>{
-            // make the port 3001 if u use node server and 5000 with python
-            socket.current = io.connect("http://localhost:3001") 
+            socket.current = io(server) 
             socket.current.emit("new_user",username)
+
             socket.current.on("recv_msg",(data)=>{
                 // made the .msgs div become flex-direction : column-reverse
                 // so i put the last msg at the first of the msgs array
                 setMsgs((list)=>[data,...list])
                 
-                msgAudio.currentTime = 0
-                msgAudio.play()
+                msgAudio.current.play()
             })
             socket.current.on("count",(data)=>{
                 setOnline(data)
@@ -134,13 +101,11 @@ function Chat(props){
             socket.current.on("recv_voice",(data)=>{
                 console.log(data.voice)
                 setMsgs((list)=>[data,...list])
-                msgAudio.currentTime = 0
-                msgAudio.play()
+                msgAudio.current.play()
             }) 
 
             socket.current.on("popup",(data)=>{
-                popupAudio.currentTime = 0
-                popupAudio.play()
+                popupAudio.current.play()
                 setPopups((prevPopups)=>{
                     //data expected to be = {show : true,title:data.title,body : data.body}
                     return [...prevPopups,data]
@@ -152,52 +117,35 @@ function Chat(props){
         },[])
     return(
         <>
-        <div className="container">
-            <div className="title flex">
-                <div className="greendot"></div>
-                {online} online
-                {online === 1 && <div className="small">(only you in the chat)</div>}
-                </div>
-            <div className="form">
-                <div className="msgs">
-                    {msgs.map((oneMsg, key)=>{
-                        return makeMsg(oneMsg,key)
-                    })}
-                    
-                </div>
-                {isRecoring ? (
-                    <div onClick={stopRecordingAndSend} className="isRecording-container">
-                         <IoMicSharp className="isRecording-icon" />
-                    </div>
-                    
-                ) : (<div className="inputs">
-                    {img ? 
-                    <div className="img-container">
-                        <img src={img} /> 
-                    </div>
-                    : <input onKeyDown={(e)=>{
-                        if(e.key === "Enter"){sendMsg()}
-                    }} placeholder="message..." value={msg} className="input" onChange={(e)=>setMsg(e.target.value)}/>}
-                    <button className="btn" onClick={sendMsg}>
-                    <IoRocket className="sendIcon"/>
-                    </button>
-                    <label className="file-btn">
-                        <input type="file" onChange={makeImage}/>
-                        <IoAttach className="attachIcon" />
-                    </label>
-                    <div onClick={startRecording} className="record-btn"><IoMicOutline className="record-icon"/></div>
-                </div>
-                )}
-                
-                
-            </div>
-        </div>
-
+        <audio ref={popupAudio} src={popupSound} />
+        <audio ref={msgAudio} src={msgSound} />
+        <Container>
+            <Online online={online} />
+            <Form>
+                <Msgs msgs={msgs} />
+                {isRecoring ? ( 
+                    <RecordingContainer stopRecordingAndSend={stopRecordingAndSend} />
+                ) : 
+                    <Inputs 
+                        img={img}
+                        msg={msg}
+                        setMsg={setMsg}
+                        sendMsg={sendMsg}
+                        setImg={setImg}
+                        startRecording={startRecording}
+                        makeImage={makeImage}
+                    />
+                } 
+            </Form>
+        </Container>
+            
         {
+            // popups
             popups.length > 0 && (
                 <Popups>
                     {popups.map((popup,key)=>{
-                        return <Popup key={key} show={true} title={popup.title} msg={popup.body} /> 
+                        if(popup !== null || popup !== undefined)
+                            return <Popup key={key} show={true} title={popup.title} msg={popup.body} /> 
                     })}
                 </Popups>
             ) 
